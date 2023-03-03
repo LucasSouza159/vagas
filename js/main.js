@@ -23,6 +23,7 @@ function displayResults(results) {
     const p = document.createElement("p");
     p.textContent = result.description;
     li.appendChild(p);
+
     const date = new Date(result.created);
     const dateString = `${date.getFullYear()}-${
       date.getMonth() + 1
@@ -30,7 +31,6 @@ function displayResults(results) {
     const timeString = `${date.getHours()}:${
       date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes()
     }`;
-
     const p2 = document.createElement("p");
     p2.textContent = `Publicado em ${dateString} às ${timeString}`;
     li.appendChild(p2);
@@ -45,12 +45,17 @@ function displayResults(results) {
   }
 }
 
-function searchJobs() {
-  const searchTerm = searchInput.value;
+function searchJobs(isTop = false) {
+  let url;
 
-  fetch(
-    `https://api.adzuna.com/v1/api/jobs/br/search/1?app_id=a4f29f2f&app_key=09a44813ecf2fbf9cf55e24c92d93779&results_per_page=10&what=${searchTerm}&content-type=application/json`
-  )
+  if (isTop) {
+    url = `https://api.adzuna.com/v1/api/jobs/br/search/1?app_id=a4f29f2f&app_key=09a44813ecf2fbf9cf55e24c92d93779&results_per_page=10&content-type=application/json`;
+  } else {
+    const searchTerm = searchInput.value;
+    url = `https://api.adzuna.com/v1/api/jobs/br/search/1?app_id=a4f29f2f&app_key=09a44813ecf2fbf9cf55e24c92d93779&results_per_page=1000&what=${searchTerm}&content-type=application/json`;
+  }
+
+  fetch(url)
     .then((response) => response.json())
     .then((data) => {
       const results = data.results;
@@ -62,7 +67,13 @@ function searchJobs() {
     });
 }
 
-searchButton.addEventListener("click", searchJobs);
+// Mostrar as 10 principais vagas quando a página é carregada
+searchJobs(true);
+
+searchButton.addEventListener("click", () => {
+  searchJobs();
+});
+
 searchInput.addEventListener("keydown", (event) => {
   if (event.key === "Enter") {
     searchJobs();
