@@ -1,0 +1,35 @@
+@media (max-width: 450px){
+    header h1{
+        display: none;
+    }
+    main{
+        padding: 20px;
+    }
+    .search input[type="text"]{
+        width: 75vw;
+    }
+    .results li h2{
+        font-size: 1.5rem;
+    }
+    .results li p{
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 376px){
+    header h1{
+        display: none;
+    }
+    main{
+        padding: 20px;
+    }
+    .search input[type="text"]{
+        width: 75vw;
+    }
+    .results li h2{
+        font-size: 1.2rem;
+    }
+    .results li p{
+        font-size: 0.8rem;
+    }
+}
