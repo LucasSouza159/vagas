@@ -120,3 +120,11 @@ footer a{
         transform: scale(1.3);
     }
 }
+
+/* Scrollbar */
+::-webkit-scrollbar{
+    width: 8px;
+}
+::-webkit-scrollbar-thumb{
+    background-color: #0ae570;
+}
